@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 /** Responsible for rendering the map displaying probability of getting abducted
  * */
@@ -8,7 +9,7 @@ class MapDetail extends Component {
         this.state = {
             latitude: 51.18291,
             longitude: -0.63098,
-            radius: 5000
+            radius: 50000
         }
     }
 
@@ -18,9 +19,7 @@ class MapDetail extends Component {
 
     getCityData = () => {
         console.log(this.state);
-        fetch('http://ufo-api.herokuapp.com/api/sightings/location/near?lat=' + this.state.latitude + '&lon=' + this.state.longitude + '&radius= ' + this.state.radius, {
-            mode: 'no-cors' // 'cors' by default
-        })
+        axios.get('https://cors-anywhere.herokuapp.com/http://ufo-api.herokuapp.com/api/sightings/location/near?lat=51.18291&lon=-0.63098&radius=5000')
             .then((res) => {
                 console.log(res);
             })
