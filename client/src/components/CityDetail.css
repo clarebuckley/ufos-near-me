@@ -18,6 +18,16 @@
     border: 2px solid #03827a;
 }
 
+.selectedCityAbductionSighting {
+    background-color: #b7e0dd;
+    padding: 15px;
+    border-bottom: 1px solid white;
+}
+
+    .selectedCityAbductionSighting > p {
+        margin: 0;
+    }
+
 .cityAbductionSighting {
     background-color: #a7e3df;
     padding: 15px;
