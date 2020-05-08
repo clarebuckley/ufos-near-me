@@ -1,3 +1,10 @@
 {
-    "start": "cd client && npm start"
+    "version": "1.0.0",
+    "engines": {
+        "node": "12.11.1"
+    },
+    "scripts": {
+        "heroku-postbuild": "npm run build --prefix client",
+        "start": "npm start --prefix client"
+    }
 }
