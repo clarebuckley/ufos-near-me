@@ -6,31 +6,46 @@
 }
 
 
-.cityAbductionsContainer{
+.cityAbductionsContainer {
     width: 400px;
     height: 500px;
-    overflow-y: scroll;
     margin: 0 auto;
     position: relative;
+}
+
+.cityAbductionsContent {
+    overflow-y: scroll;
+    height: inherit;
+    width: inherit;
     border: 2px solid #03827a;
 }
 
+.cityAbductionSighting {
+    background-color: #a7e3df;
+    padding: 20px;
+    border-bottom: 1px solid white;
+}
+
+    .cityAbductionSighting:hover {
+        background-color: #90d1cd;
+    }
+
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 15px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #03827a;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: white;
 }
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-        background: #555;
+        background: #68ddd5;
     }
