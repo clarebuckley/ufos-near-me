@@ -4,7 +4,6 @@
         "node": "12.11.1"
     },
     "scripts": {
-        "heroku-postbuild": "npm run build --prefix client",
         "start": "npm start --prefix client"
     }
 }
