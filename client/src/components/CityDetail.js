@@ -23,21 +23,33 @@ class CityDetail extends Component {
     }
 
     componentDidMount() {
-        this.getCityData();
+        this.getCityData()
+            .then(() => {
+                this.getFullSummary(this.state.selectedAbduction)
+                .then((fullSummary) => {
+                    this.setState({
+                        isLoading: false,
+                        selectedFullSummary: fullSummary
+                    })
+                })
+            })
     }
 
     getCityData = () => {
+        return new Promise((resolve, reject) => {
         axios.get(this.urlPrefix + 'http://ufo-api.herokuapp.com/api/sightings/location/near?lat=' + this.state.latitude + '&lon=' + this.state.longitude + '&radius=' + this.state.radius)
             .then((res) => {
                 console.log(res.data.sightings[2].obj);
                 this.setState({
-                    isLoading: false,
                     sightings: res.data.sightings
                 })
+                return resolve();
             })
             .catch((err) => {
-                console.error(err)
-            });
+                console.error(err);
+                return reject();
+                });
+        })
     }
 
     handleAbductionSelected = (index) => {
@@ -80,7 +92,7 @@ class CityDetail extends Component {
         } else {
             return (
                 <div className="column CityDetail">
-                    <p>Click any result to see more</p>
+                    <p>Click any result to see more. All details have been entered by users of <a href="http://www.nuforc.org/">this site</a></p>
                     <div className="cityAbductionsContainer">
                         <div className="cityAbductionsHeader">
                             Sightings in {this.state.city}
