@@ -23,6 +23,7 @@
     float: left;
     width: 50%;
     padding: 10px;
+    border: 1px solid black;
 }
 
 /* Clear floats after the columns */
