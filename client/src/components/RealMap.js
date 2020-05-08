@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { MapDetail, TileLayer, Marker, Popup } from 'react-leaflet'
+import { TileLayer, Marker, Popup } from 'react-leaflet'
+import MapDetail from './MapDetail'
 
 export default class RealMap extends Component {
   state = {
@@ -16,10 +17,7 @@ export default class RealMap extends Component {
           zoom={this.state.zoom}
           style={{ width: '100%', height: '900px' }}
         >
-          <TileLayer
-            attribution='<a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+
           {
             this.props.sightings.map(sightings => {
               const point = [sightings['loc']['0'][0], sightings['loc']['1'][0]]

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import RealMap from './components/RealMap'
+import RealMap from './RealMap'
 
 
 /** Responsible for rendering the map displaying probability of getting abducted
