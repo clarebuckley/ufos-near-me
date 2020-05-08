@@ -7,7 +7,7 @@ import axios from 'axios';
 class CityDetail extends Component {
     constructor() {
         super();
-        this.urlPrefix = 'https://cors-anywhere.herokuapp.com/http://ufo-api.herokuapp.com/api';
+        this.urlPrefix = 'https://cors-anywhere.herokuapp.com/';
 
         //lat/long/city should come from map data
         this.state = {
@@ -17,7 +17,8 @@ class CityDetail extends Component {
             radius: 10000,
             sightings: [],
             city: "[[the city I clicked on]]",
-            selectedAbduction: 0
+            selectedAbduction: 0,
+            selectedFullSummary: "placeholder"
         }
     }
 
@@ -26,7 +27,7 @@ class CityDetail extends Component {
     }
 
     getCityData = () => {
-        axios.get(this.urlPrefix + '/sightings/location/near?lat=' + this.state.latitude + '&lon=' + this.state.longitude + '&radius=' + this.state.radius)
+        axios.get(this.urlPrefix + 'http://ufo-api.herokuapp.com/api/sightings/location/near?lat=' + this.state.latitude + '&lon=' + this.state.longitude + '&radius=' + this.state.radius)
             .then((res) => {
                 console.log(res.data.sightings[2].obj);
                 this.setState({
@@ -41,8 +42,35 @@ class CityDetail extends Component {
 
     handleAbductionSelected = (index) => {
         this.setState({
-            selectedAbduction: index
+            isLoading: true
         })
+        this.getFullSummary(index).then((fullSummary) => {
+            this.setState({
+                isLoading: false,
+                selectedAbduction: index,
+                selectedFullSummary: fullSummary
+            })
+        })
+
+    }
+
+    //This is entirely dependent on how the ufo page structure their website and will break if they ever do change it
+    getFullSummary = (index) => {
+        return new Promise((resolve, reject) => {
+            fetch(this.urlPrefix + this.state.sightings[index].obj.url)
+                .then(response => response.text())
+                .then(text => {
+                    let summaryBlock = text.split("<TR VALIGN=TOP>")[2];
+                    summaryBlock = this.stripHtml(summaryBlock).trim();
+                    return resolve(summaryBlock);
+                })
+        })
+
+    }
+        ;
+    stripHtml = (html) => {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
     }
 
 
@@ -68,10 +96,11 @@ class CityDetail extends Component {
                     </div>
                     <div className="focusedAbductionContainer">
                         <div className="cityAbductionsHeader">
-                            {this.state.sightings[this.state.selectedAbduction].obj.date.split("T")[0]}: {this.state.sightings[this.state.selectedAbduction].obj.city}
+                            {this.state.sightings[this.state.selectedAbduction].obj.shape} - {this.state.sightings[this.state.selectedAbduction].obj.date.split("T")[0]}: {this.state.sightings[this.state.selectedAbduction].obj.city}
                         </div>
                         <div className="focusedAbductionContent">
-                            <p>Selected: {this.state.selectedAbduction}</p>
+                            <p style={{ 'fontStyle': 'italic' }}>"{this.state.sightings[this.state.selectedAbduction].obj.summary}"</p>
+                            <p>{this.state.selectedFullSummary}</p>
                         </div>
                     </div>
                 </div>
