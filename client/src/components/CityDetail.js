@@ -114,7 +114,7 @@ class CityDetail extends Component {
                             </div>
                         </div>
                     ) : (
-                            <p>Click any result to see more. All details have been entered by users of <a href="http://www.nuforc.org/">this site</a></p>
+                            <p className="instructions">Click any result to see more. All details have been entered by users of <a href="http://www.nuforc.org/">this site</a></p>
                         )}
                     
                 </div>

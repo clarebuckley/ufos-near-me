@@ -1,6 +1,6 @@
 
 .cityAbductionsHeader {
-    background-color: #03827a;
+    background-color: rgba(7, 83, 78, 0.3);
     color: white;
     padding: 15px;
 }
@@ -19,9 +19,10 @@
 }
 
 .selectedCityAbductionSighting {
-    background-color: #b7e0dd;
+    background-color: rgba(3, 130, 122, 0.4);
     padding: 15px;
     border-bottom: 1px solid white;
+    color: white;
 }
 
     .selectedCityAbductionSighting > p {
@@ -29,9 +30,10 @@
     }
 
 .cityAbductionSighting {
-    background-color: #a7e3df;
+    background-color: rgba(3, 130, 122, 0.7);
     padding: 15px;
     border-bottom: 1px solid white;
+    color: white;
 }
 
     .cityAbductionSighting:hover {
@@ -52,9 +54,18 @@
     height: inherit;
     width: inherit;
     border: 2px solid #03827a;
-    background-color: #a7e3df;
+    background-color: rgba(3, 130, 122, 0.7);
     padding-left: 20px;
     padding-right: 20px;
+    color: white;
+}
+
+.instructions {
+    color: white;
+}
+
+.instructions > a {
+    color: aquamarine;
 }
 
 
