@@ -2,13 +2,12 @@
 .cityAbductionsHeader {
     background-color: #03827a;
     color: white;
-    padding: 20px;
+    padding: 15px;
 }
 
-
 .cityAbductionsContainer {
-    width: 400px;
-    height: 500px;
+    width: 350px;
+    height: 300px;
     margin: 0 auto;
     position: relative;
 }
@@ -22,12 +21,16 @@
 
 .cityAbductionSighting {
     background-color: #a7e3df;
-    padding: 20px;
+    padding: 15px;
     border-bottom: 1px solid white;
 }
 
     .cityAbductionSighting:hover {
         background-color: #90d1cd;
+    }
+
+    .cityAbductionSighting > p {
+        margin: 0;
     }
 
 /* width */
