@@ -20,7 +20,7 @@ class MapDetail extends Component {
 
     render() {
         return (
-            <RealMap incidents={this.state.sightings} />
+            <RealMap sightings={this.state.sightings} />
         );
     }
 }
