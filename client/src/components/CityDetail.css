@@ -7,9 +7,8 @@
 
 .cityAbductionsContainer {
     width: 350px;
-    height: 300px;
-    margin: 0 auto;
-    position: relative;
+    height: 250px;
+    margin-bottom: 80px
 }
 
 .cityAbductionsContent {
@@ -33,6 +32,20 @@
         margin: 0;
     }
 
+.focusedAbductionContainer {
+    width: 650px;
+    height: 200px;
+}
+
+.focusedAbductionContent {
+    overflow-y: scroll;
+    height: inherit;
+    width: inherit;
+    border: 2px solid #03827a;
+    background-color: #a7e3df;
+}
+
+
 /* width */
 ::-webkit-scrollbar {
     width: 15px;
@@ -45,7 +58,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: white;
+    background: #ececec;
 }
 
     /* Handle on hover */

@@ -16,7 +16,8 @@ class CityDetail extends Component {
             longitude: -1.8724808,
             radius: 10000,
             sightings: [],
-            city: "[[the city I clicked on]]"
+            city: "[[the city I clicked on]]",
+            selectedAbduction: 0
         }
     }
 
@@ -38,13 +39,19 @@ class CityDetail extends Component {
             });
     }
 
+    handleAbductionSelected = (index) => {
+        this.setState({
+            selectedAbduction: index
+        })
+    }
+
 
     render() {
         if (this.state.isLoading) {
             return "Loading...";
         } else {
             return (
-                <div className="column">
+                <div className="column CityDetail">
                     <p>Click any result to see more</p>
                     <div className="cityAbductionsContainer">
                         <div className="cityAbductionsHeader">
@@ -52,11 +59,19 @@ class CityDetail extends Component {
                         </div>
                         <div className="cityAbductionsContent">
                             {this.state.sightings.map((sighting, index) => (
-                                <div key={index} className="cityAbductionSighting">
+                                <div key={index} className="cityAbductionSighting" onClick={() => { this.handleAbductionSelected(index) }} >
                                     <p>{sighting.obj.date.split("T")[0]}: {sighting.obj.city.split(" ")[0]}</p>
                                     <p>{sighting.obj.shape}: {sighting.obj.summary.substring(0, 25)}...</p>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                    <div className="focusedAbductionContainer">
+                        <div className="cityAbductionsHeader">
+                            {this.state.sightings[this.state.selectedAbduction].obj.date.split("T")[0]}: {this.state.sightings[this.state.selectedAbduction].obj.city}
+                        </div>
+                        <div className="focusedAbductionContent">
+                            <p>Selected: {this.state.selectedAbduction}</p>
                         </div>
                     </div>
                 </div>
