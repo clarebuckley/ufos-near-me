@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 class MapDetail extends Component {
     render() {
         return (
-            <div>
+            <div className="column">
                 <p> whole map goes here </p>
             </div>
         );

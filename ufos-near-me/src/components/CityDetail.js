@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 class CityDetail extends Component {
     render() {
         return (
-            <div>
+            <div className="column">
                 <p> abduction detail goes here </p>
             </div>
         );
