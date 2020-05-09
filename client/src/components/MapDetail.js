@@ -14,20 +14,21 @@ class MapDetail extends Component {
     }
 
     render() {
-        const position = [this.state.lat, this.state.lng];
+        const position = [this.state.lat, this.state.lng]
         return (
-            <Map id="MapDetail" className="column" center={position} zoom={this.state.zoom}>
+            <Map className="column" center={position} zoom={this.state.zoom} >
                 <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Marker position={position}>
                     <Popup>
                         A pretty CSS3 popup. <br /> Easily customizable.
-                        </Popup>
+                    </Popup>
                 </Marker>
             </Map>
-        );
+        )
+    
     }
 }
 
