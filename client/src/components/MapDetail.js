@@ -14,13 +14,7 @@ class MapDetail extends Component {
             markers: [{ lat: 52.570048, lng: -1.899332 }, { lat: 53.570048, lng: 1.899332 }],
             heatmapData: {
                 max: 10,
-                data: [
-                    [-37.8839, null, "571"],
-                    [-37.8869090667, 175.3657417333, "486"],
-                    [-37.8894207167, 175.4015351167, "807"],
-                    [-37.8927369333, 175.4087452333, "899"],
-                    [-37.90585105, 175.4453463833, "1273"]
-                ]
+                data: [[52.570048, -1.899332, "120"]]
             }
         }
     }
@@ -28,25 +22,42 @@ class MapDetail extends Component {
     mapRef = createRef()
 
 
-
     handleClick = (event) => {
         this.props.handleLocationChange(event.latlng);
-        this.addMarkers(this.props.sightings);
+        this.populateHeatmap(this.props.sightings);
         this.setState({
             latlng: event.latlng
         })
-
     }
 
-    //Add markers from each sighting to map
-    addMarkers = (sightings) => {
-        let markers = [];
+    populateHeatmap = (sightings) => {
+        let latLngValues = [];
+        let newHeatmapData = [];
+
         for (let sighting of sightings) {
-            markers.push({ lng: sighting.obj.loc[0], lat: sighting.obj.loc[1] })
+            newHeatmapData.push([sighting.obj.loc[1], sighting.obj.loc[0], "120"]);
+            latLngValues.push(sighting.obj.loc[1] + "," + sighting.obj.loc[0])
         }
+
+        let sightingsCount = this.countSightingsInEachLocation(latLngValues);
+
+        for (let sighting in sightingsCount) {
+            let lat = sighting.split(",")[0];
+            let lng = sighting.split(",")[1];
+            newHeatmapData.push([lat, lng, sightingsCount[sighting]]);
+        }
+
         this.setState({
-            markers: markers
+            heatmapData: {
+                data: newHeatmapData
+            }
         })
+    }
+
+    countSightingsInEachLocation(latLngValues) {
+        let count = {};
+        latLngValues.forEach(function (i) { count[i] = (count[i] || 0) + 1; });
+        return count;
     }
 
 
@@ -82,7 +93,6 @@ class MapDetail extends Component {
                 ))}
             </Map>
         )
-
     }
 }
 
