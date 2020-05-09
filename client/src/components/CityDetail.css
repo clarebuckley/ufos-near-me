@@ -7,7 +7,7 @@
 
 .cityAbductionsContainer {
     width: 350px;
-    height: 250px;
+    max-height: 250px;
     margin-bottom: 80px
 }
 
@@ -46,7 +46,7 @@
 
 .focusedAbductionContainer {
     width: 650px;
-    height: 200px;
+    max-height: 200px;
 }
 
 .focusedAbductionContent {

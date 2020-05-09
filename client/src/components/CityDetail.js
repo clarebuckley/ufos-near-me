@@ -25,6 +25,9 @@ class CityDetail extends Component {
     }
 
     getCityData = () => {
+        this.setState({
+            isLoading: true
+        })
         axios.get(this.urlPrefix + 'http://ufo-api.herokuapp.com/api/sightings/location/near?lat=' + this.props.latlng.lat + '&lon=' + this.props.latlng.lng + '&radius=' + this.state.radius)
             .then((res) => {
                 this.setState({
@@ -80,6 +83,8 @@ class CityDetail extends Component {
     render() {
         if (this.state.isLoading) {
             return "Loading...";
+        } else if (this.state.sightings.length === 0) {
+            return "No data for this location";
         } else {
             return (
                 <div className="column CityDetail">
@@ -89,10 +94,10 @@ class CityDetail extends Component {
                         </div>
                         <div className="cityAbductionsContent">
                             {this.state.sightings.map((sighting, index) => (
-                                <div key={index} className={this.state.selectedAbduction === index ? 'selectedCityAbductionSighting' : 'cityAbductionSighting'} onClick={() => { this.handleAbductionSelected(index) }} >
-                                    <p>{sighting.obj.date.split("T")[0]}: {sighting.obj.city.split(" ")[0]}</p>
-                                    <p>{sighting.obj.shape}: {sighting.obj.summary.substring(0, 25)}...</p>
-                                </div>
+                                    <div key={index} className={this.state.selectedAbduction === index ? 'selectedCityAbductionSighting' : 'cityAbductionSighting'} onClick={() => { this.handleAbductionSelected(index) }} >
+                                        <p>{sighting.obj.date.split("T")[0]}: {sighting.obj.city.split(" ")[0]}</p>
+                                        <p>{sighting.obj.shape}: {sighting.obj.summary.substring(0, 25)}...</p>
+                                    </div>
                             ))}
                         </div>
                     </div>
