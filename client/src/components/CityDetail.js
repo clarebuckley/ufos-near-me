@@ -12,8 +12,6 @@ class CityDetail extends Component {
         //lat/long/city should come from map data
         this.state = {
             isLoading: true,
-            latitude: 52.587580,
-            longitude: -1.8724808,
             radius: 10000,
             sightings: [],
             city: "[[the city I clicked on]]",
@@ -23,24 +21,20 @@ class CityDetail extends Component {
     }
 
     componentDidMount() {
-        this.getCityData(); 
+        this.getCityData();
     }
 
     getCityData = () => {
-        return new Promise((resolve, reject) => {
-        axios.get(this.urlPrefix + 'http://ufo-api.herokuapp.com/api/sightings/location/near?lat=' + this.state.latitude + '&lon=' + this.state.longitude + '&radius=' + this.state.radius)
+        axios.get(this.urlPrefix + 'http://ufo-api.herokuapp.com/api/sightings/location/near?lat=' + this.props.latlng.lat + '&lon=' + this.props.latlng.lng + '&radius=' + this.state.radius)
             .then((res) => {
                 this.setState({
                     isLoading: false,
                     sightings: res.data.sightings
                 })
-                return resolve();
             })
             .catch((err) => {
                 console.error(err);
-                return reject();
-                });
-        })
+            })
     }
 
     handleAbductionSelected = (index) => {
@@ -49,17 +43,17 @@ class CityDetail extends Component {
                 selectedAbduction: '-'
             })
         } else {
-        this.setState({
-            isLoading: true
-        })
-        this.getFullSummary(index).then((fullSummary) => {
             this.setState({
-                isLoading: false,
-                selectedAbduction: index,
-                selectedFullSummary: fullSummary
+                isLoading: true
             })
+            this.getFullSummary(index).then((fullSummary) => {
+                this.setState({
+                    isLoading: false,
+                    selectedAbduction: index,
+                    selectedFullSummary: fullSummary
+                })
             })
-            }
+        }
 
     }
 
@@ -76,7 +70,7 @@ class CityDetail extends Component {
         })
 
     }
-        
+
     stripHtml = (html) => {
         var doc = new DOMParser().parseFromString(html, 'text/html');
         return doc.body.textContent || "";
@@ -116,7 +110,7 @@ class CityDetail extends Component {
                     ) : (
                             <p className="instructions">Click any result to see more. All details have been entered by users of <a href="http://www.nuforc.org/">this site</a></p>
                         )}
-                    
+
                 </div>
             );
         }

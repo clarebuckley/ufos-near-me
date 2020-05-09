@@ -15,22 +15,21 @@ class MapDetail extends Component {
 
     mapRef = createRef()
 
-
-    //not sure what this does that's different to handleLocationFound
-    handleClick = () => {
-        const map = this.mapRef.current
-        if (map != null) {
-            console.log(map.leafletElement);
-            map.leafletElement.locate()
-        }
-    }
-
-    handleLocationFound = (event) => {
-        console.log(event)
+    handleClick = (event) => {
         this.setState({
             hasLocation: true,
             latlng: event.latlng,
         })
+        this.props.handleLocationChange(event.latlng);
+    }
+
+    //we might not need this?
+    handleLocationFound = (event) => {
+     /*   this.setState({
+            hasLocation: true,
+            latlng: event.latlng,
+        })
+        this.props.handleLocationChange(event.latlng);*/
     }
 
     render() {
