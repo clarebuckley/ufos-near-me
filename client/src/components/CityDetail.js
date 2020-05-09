@@ -14,7 +14,7 @@ class CityDetail extends Component {
             isLoading: true,
             radius: 100000,
             sightings: [],
-            city: "[[the city I clicked on]]",
+            city: "this area",
             selectedAbduction: '-',
             selectedFullSummary: "placeholder"
         }
@@ -79,7 +79,6 @@ class CityDetail extends Component {
         var doc = new DOMParser().parseFromString(html, 'text/html');
         return doc.body.textContent || "";
     }
-
 
     render() {
         if (this.state.isLoading) {

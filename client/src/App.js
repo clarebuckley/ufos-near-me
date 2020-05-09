@@ -6,9 +6,8 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                Will I Get Abducted?
+               Areas Where I Might Get Abducted
             </header>
-
             <Map />
 
         </div>

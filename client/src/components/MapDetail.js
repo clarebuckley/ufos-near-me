@@ -1,5 +1,6 @@
 import React, { createRef, Component } from 'react';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Icon } from "leaflet";
 import HeatmapLayer from 'react-leaflet-heatmap-layer';
 
 /** Responsible for rendering the map displaying probability of getting abducted
@@ -15,7 +16,8 @@ class MapDetail extends Component {
             heatmapData: {
                 max: 10,
                 data: [[52.570048, -1.899332, "120"]]
-            }
+            },
+            userClickedHere: { lat: 52.570048, lng: -1.899332 }
         }
     }
 
@@ -24,9 +26,21 @@ class MapDetail extends Component {
     handleClick = (event) => {
         this.props.handleLocationChange(event.latlng);
         this.populateHeatmap(this.props.sightings);
+        this.addMarkers(this.props.sightings);
         this.setState({
             latlng: event.latlng,
-            markers: [event.latlng]
+            userClickedHere: event.latlng
+        })
+    }
+
+    //Add markers from each sighting to map
+    addMarkers = (sightings) => {
+        let markers = [];
+        for (let sighting of sightings) {
+            markers.push({ lng: sighting.obj.loc[0], lat: sighting.obj.loc[1] })
+        }
+        this.setState({
+            markers: markers
         })
     }
 
@@ -61,6 +75,11 @@ class MapDetail extends Component {
     }
 
     render() {
+        const icon = new Icon({
+            iconUrl: "./ufo-icon.png",
+            iconSize: [25, 25]
+        });
+
         return (
             <Map
                 className="column"
@@ -83,10 +102,15 @@ class MapDetail extends Component {
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                <Marker position={this.state.userClickedHere} icon={icon}>
+                        <Popup>
+                        You Clicked Here
+                        </Popup>
+                </Marker>
                 {this.state.markers.map((marker, index) => (
                     <Marker position={marker} key={index}> marker_index={index}>
                         <Popup>
-                            {index + 1} here
+                            {index + 1} sightings were recorded here
                         </Popup>
                     </Marker>
                 ))}
