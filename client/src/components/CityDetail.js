@@ -12,7 +12,7 @@ class CityDetail extends Component {
         //lat/long/city should come from map data
         this.state = {
             isLoading: true,
-            radius: 10000,
+            radius: 100000,
             sightings: [],
             city: "[[the city I clicked on]]",
             selectedAbduction: '-',

@@ -11,7 +11,7 @@ class MapDetail extends Component {
         this.state = {
             zoom: 8,
             latlng: { lat: 52.570048, lng: -1.899332 },
-            markers: [{ lat: 52.570048, lng: -1.899332 }, { lat: 53.570048, lng: 1.899332 }],
+            markers: [{ lat: 52.570048, lng: -1.899332 }],
             heatmapData: {
                 max: 10,
                 data: [[52.570048, -1.899332, "120"]]
@@ -21,12 +21,12 @@ class MapDetail extends Component {
 
     mapRef = createRef()
 
-
     handleClick = (event) => {
         this.props.handleLocationChange(event.latlng);
         this.populateHeatmap(this.props.sightings);
         this.setState({
-            latlng: event.latlng
+            latlng: event.latlng,
+            markers: [event.latlng]
         })
     }
 
@@ -59,7 +59,6 @@ class MapDetail extends Component {
         latLngValues.forEach(function (i) { count[i] = (count[i] || 0) + 1; });
         return count;
     }
-
 
     render() {
         return (
