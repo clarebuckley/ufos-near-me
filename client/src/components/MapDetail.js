@@ -23,14 +23,22 @@ class MapDetail extends Component {
 
     mapRef = createRef()
 
-    handleClick = (event) => {
-        this.props.handleLocationChange(event.latlng);
+    componentDidMount() {
+        this.getMapData();
+    }
+
+    getMapData = () => {
         this.populateHeatmap(this.props.sightings);
         this.addMarkers(this.props.sightings);
+    }
+
+    handleClick = (event) => {
+        this.getMapData();
         this.setState({
             latlng: event.latlng,
             userClickedHere: event.latlng
         })
+        this.props.handleLocationChange(event.latlng);
     }
 
     //Add markers from each sighting to map
