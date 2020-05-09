@@ -8,29 +8,33 @@ class MapDetail extends Component {
         super()
         this.state = {
             zoom: 8,
-            latlng: { lat: 52.570048, lng: -1.899332 }
+            latlng: { lat: 52.570048, lng: -1.899332 },
+            markers: [{ lat: 52.570048, lng: -1.899332 }, { lat: 53.570048, lng: 1.899332 }]
         }
-
     }
 
     mapRef = createRef()
 
     handleClick = (event) => {
-        this.setState({
-            hasLocation: true,
-            latlng: event.latlng,
-        })
         this.props.handleLocationChange(event.latlng);
+        this.addMarkers(this.props.sightings);
+        this.setState({
+            latlng: event.latlng
+        })
+
     }
 
-    //we might not need this?
-    handleLocationFound = (event) => {
-     /*   this.setState({
-            hasLocation: true,
-            latlng: event.latlng,
+    //Add markers from each sighting to map
+    addMarkers = (sightings) => {
+        let markers = [];
+        for (let sighting of sightings) {
+            markers.push({lng:sighting.obj.loc[0], lat:sighting.obj.loc[1]})
+        }
+        this.setState({
+            markers: markers
         })
-        this.props.handleLocationChange(event.latlng);*/
     }
+
 
     render() {
         return (
@@ -39,18 +43,19 @@ class MapDetail extends Component {
                 center={this.state.latlng}
                 length={4}
                 onClick={this.handleClick}
-                onLocationfound={this.handleLocationFound}
                 ref={this.mapRef}
                 zoom={this.state.zoom}>
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={this.state.latlng}>
-                    <Popup>
-                        You are here
-                    </Popup>
-                </Marker>
+                {this.state.markers.map((marker, index) => (
+                    <Marker position={marker} key={index}> marker_index={index}>
+                        <Popup>
+                            {index + 1} here
+                        </Popup>
+                    </Marker>
+                ))}
             </Map>
         )
 

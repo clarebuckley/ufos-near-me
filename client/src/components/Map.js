@@ -9,7 +9,9 @@ class Map extends Component {
     constructor() {
         super();
         this.state = {
-            latlng: { lat: 52.570048, lng: -1.899332 }
+            isLoading: true,
+            latlng: { lat: 52.570048, lng: -1.899332 },
+            sightings: []
         }
     }
 
@@ -19,15 +21,20 @@ class Map extends Component {
         }, () => {
             this.refs.cityDetail.getCityData(latlng);
         })
+
     }
 
-
+    updateSightings = (sightings) => {
+        this.setState({
+            sightings: sightings
+        })
+    }
 
     render() {
         return (
             <div className="row">
-                <MapDetail handleLocationChange={this.handleLocationChange} />
-                <CityDetail ref="cityDetail" latlng={this.state.latlng} />
+                <MapDetail sightings={this.state.sightings} handleLocationChange={this.handleLocationChange} />
+                <CityDetail updateSightings={this.updateSightings} ref="cityDetail" latlng={this.state.latlng} />
             </div>
         );
     }

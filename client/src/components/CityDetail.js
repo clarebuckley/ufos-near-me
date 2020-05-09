@@ -34,6 +34,7 @@ class CityDetail extends Component {
                     isLoading: false,
                     sightings: res.data.sightings
                 })
+                this.props.updateSightings(res.data.sightings);
             })
             .catch((err) => {
                 console.error(err);
@@ -94,10 +95,10 @@ class CityDetail extends Component {
                         </div>
                         <div className="cityAbductionsContent">
                             {this.state.sightings.map((sighting, index) => (
-                                    <div key={index} className={this.state.selectedAbduction === index ? 'selectedCityAbductionSighting' : 'cityAbductionSighting'} onClick={() => { this.handleAbductionSelected(index) }} >
-                                        <p>{sighting.obj.date.split("T")[0]}: {sighting.obj.city.split(" ")[0]}</p>
-                                        <p>{sighting.obj.shape}: {sighting.obj.summary.substring(0, 25)}...</p>
-                                    </div>
+                                <div key={index} className={this.state.selectedAbduction === index ? 'selectedCityAbductionSighting' : 'cityAbductionSighting'} onClick={() => { this.handleAbductionSelected(index) }} >
+                                    <p>{sighting.obj.date.split("T")[0]}: {sighting.obj.city.split(" ")[0]}</p>
+                                    <p>{sighting.obj.shape}: {sighting.obj.summary.substring(0, 25)}...</p>
+                                </div>
                             ))}
                         </div>
                     </div>
