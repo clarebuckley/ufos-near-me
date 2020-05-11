@@ -1,2 +1,2 @@
 # ufos-near-me
-probability of getting abducted based on where i am, using data from http://www.nuforc.org/index.html
+displaying heatmap data of ufo sightings based on location, using reportings collated by http://www.nuforc.org/index.html
